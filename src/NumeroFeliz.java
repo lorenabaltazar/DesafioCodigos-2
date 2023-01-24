@@ -1,31 +1,35 @@
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class NumeroFeliz {
+    public static int somaQuadrado(int num) {
+        int somaAoQuadrado = 0;
+        while (num != 0) {
+            somaAoQuadrado += (num % 10) * (num % 10);
+            num /= 10;
+        }
+        return somaAoQuadrado;
+    }
+
+    public static boolean numeroEhFeliz(int num) {
+
+        HashSet<Integer> numeroFeliz = new HashSet<>();
+
+        while (true) {
+
+            num = somaQuadrado(num);
+            if (num == 1)
+                return true;
+            if (numeroFeliz.contains(num))
+                return false;
+            numeroFeliz.add(num);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
-        //TODO: Desenvolva um algoritmo que retorne se o número é feliz ou não
-        scan.close();
-        System.out.println(EstaFeliz(n));
-    }
-
-    public static boolean EstaFeliz(int n) {
-        String texto = String.valueOf(n);
-        if(texto.length() == 1) {
-            return Integer.parseInt(texto) == 1;
-        } do {
-            String[] vetor = texto.split("");
-            int soma = 0;
-            for (int x = 0; x < vetor.length; x++) {
-                int valor = Integer.parseInt(vetor[x]);
-                soma += (valor * valor);
-            }
-            String somaString = String.valueOf(soma);
-            if(somaString.length() == 1) {
-                return Integer.parseInt(somaString) == 1;
-            }
-            texto = somaString;
-        } while (texto.length() != 1);
-        return false;
+        boolean numero_feliz = numeroEhFeliz(n);
+        System.out.println(numero_feliz);
     }
 }
